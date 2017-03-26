@@ -6,10 +6,6 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.BenchmarkParams;
-import org.openjdk.jmh.runner.Runner;
-import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -101,14 +97,18 @@ public class MybatisBenchmark extends Base {
         session.close();
     }
 
-    public static void main(String[] args) throws RunnerException {
-        Options opt = new OptionsBuilder()
-                .include(MybatisBenchmark.class.getSimpleName())
-                .warmupIterations(3)
-                .measurementIterations(10)
-                .threads(Runtime.getRuntime().availableProcessors())
-                .forks(2)
-                .build();
-        new Runner(opt).run();
+    public static void main(String[] args) throws Exception {
+//        Options opt = new OptionsBuilder()
+//                .include(MybatisBenchmark.class.getSimpleName())
+//                .warmupIterations(3)
+//                .measurementIterations(10)
+//                .threads(Runtime.getRuntime().availableProcessors())
+//                .forks(2)
+//                .build();
+//        new Runner(opt).run();
+
+        MybatisBenchmark benchmark = new MybatisBenchmark();
+        benchmark.setup(null);
+        benchmark.batchInsert();
     }
 }

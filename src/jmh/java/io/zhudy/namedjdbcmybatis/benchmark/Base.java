@@ -17,9 +17,9 @@ public class Base {
     public static final int DB_ROWS = 1000 * 1000;
 
     @Param("100")
-    public int minPoolSize;
+    public int minPoolSize = 100;
     @Param("100")
-    public int maxPoolSize;
+    public int maxPoolSize = 100;
 
     public static DataSource dataSource;
 
@@ -27,7 +27,7 @@ public class Base {
     public void setup(BenchmarkParams params) throws Exception {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.mariadb.jdbc.Driver");
-        config.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/setaria?useUnicode=true&characterEncoding=UTF-8");
+        config.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/setaria?useUnicode=true&rewriteBatchedStatements=true&characterEncoding=UTF-8");
         config.setUsername("root");
         config.setConnectionTestQuery("select 1");
         config.setMinimumIdle(minPoolSize);
