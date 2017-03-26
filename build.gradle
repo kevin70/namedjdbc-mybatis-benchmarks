@@ -18,6 +18,7 @@ group 'io.zhudy'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'idea'
 apply plugin: "me.champeau.gradle.jmh"
 
 compileJava {
@@ -43,7 +44,6 @@ repositories {
 dependencies {
     compileOnly "org.projectlombok:lombok:1.16.16"
 
-//    jmh "org.openjdk.jmh:jmh-core:1.18"
     jmh "org.openjdk.jmh:jmh-generator-annprocess:1.17.3"
     jmh "org.springframework:spring-context:4.1.7.RELEASE"
     jmh "org.springframework:spring-jdbc:4.1.7.RELEASE"
