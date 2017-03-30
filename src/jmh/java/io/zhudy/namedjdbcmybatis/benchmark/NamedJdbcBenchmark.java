@@ -107,55 +107,6 @@ public class NamedJdbcBenchmark extends Base {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    public void batchInsert2() throws Exception {
-        StringBuilder sb = new StringBuilder(20 * 1000);
-        sb.append("INSERT INTO `t_person` (firstName, lastName, age, gender, height, weight, address, hobby, createdTime)");
-        sb.append(" VALUES ");
-        Object[] args = new Object[1000 * 9];
-        int j = 1;
-        for (int i = 0; i < 1000; i++) {
-            sb.append("(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            if (i < 999) {
-                sb.append(",");
-            }
-
-            args[(j++) - 1] = "kevin";
-            args[(j++) - 1] = "zou";
-            args[(j++) - 1] = 99;
-            args[(j++) - 1] = 0;
-            args[(j++) - 1] = 175;
-            args[(j++) - 1] = 65;
-            args[(j++) - 1] = "Chinnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnna Shanghaaaaaaaaaaaaaaaaaaaaaaaaaaaai";
-            args[(j++) - 1] = "Coooooooooooooooooooooooooooooooooooooooooooooooooooooooode";
-            args[(j++) - 1] = Instant.now().toEpochMilli();
-        }
-
-        jdbcOperations.getJdbcOperations().update(sb.toString(), args);
-//        jdbcOperations.getJdbcOperations().batchUpdate(sql, new BatchPreparedStatementSetter() {
-//            @Override
-//            public void setValues(PreparedStatement ps, int i) throws SQLException {
-//                int j = 1;
-//                ps.setString(j++, "kevin");
-//                ps.setString(j++, "zou");
-//                ps.setInt(j++, 99);
-//                ps.setInt(j++, 0);
-//                ps.setInt(j++, 175);
-//                ps.setInt(j++, 65);
-//                ps.setString(j++, "Chinnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnna Shanghaaaaaaaaaaaaaaaaaaaaaaaaaaaai");
-//                ps.setString(j++, "Coooooooooooooooooooooooooooooooooooooooooooooooooooooooode");
-//                ps.setLong(j++, Instant.now().toEpochMilli());
-//            }
-//
-//            @Override
-//            public int getBatchSize() {
-//                return 1000;
-//            }
-//        });
-    }
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void queryById() throws Exception {
         String sql = "select * from t_person where id=:id";
 
